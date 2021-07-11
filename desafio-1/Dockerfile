@@ -9,6 +9,4 @@ ENV GO111MODULE=on
 RUN go mod tidy
 RUN GOOS=linux go build -o entrypoint
 
-RUN ls
-
 ENTRYPOINT ["./entrypoint"]
