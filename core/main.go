@@ -3,10 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/liverday/codebank/core/usecase"
-	"github.com/liverday/codebank/core/infrastructure/repository"
 	"log"
+
 	_ "github.com/lib/pq"
+	"github.com/liverday/codebank/core/infrastructure/repository"
+	"github.com/liverday/codebank/core/usecase"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 func setupTransactionUseCase(db *sql.DB) usecase.UseCaseTransaction {
 	transactionsRepository := repository.NewTransactionRepositoryPostgres(db)
 	useCase := usecase.NewUseCaseTransaction(transactionsRepository)
-	
+
 	return useCase
 }
 

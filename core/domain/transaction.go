@@ -2,6 +2,7 @@ package domain
 
 import (
 	"time"
+
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -12,13 +13,13 @@ type TransactionsRepository interface {
 }
 
 type Transaction struct {
-	ID string
-	Amount float64
-	Status string
-	Description string
-	Store string
+	ID           string
+	Amount       float64
+	Status       string
+	Description  string
+	Store        string
 	CreditCardID string
-	CreatedAt time.Time
+	CreatedAt    time.Time
 }
 
 func NewTransaction() *Transaction {
@@ -29,10 +30,10 @@ func NewTransaction() *Transaction {
 }
 
 func (t *Transaction) ProcessAndValidate(creditCard *CreditCard) {
-	if (t.Amount + creditCard.Balance > creditCard.Limit) {
+	if t.Amount+creditCard.Balance > creditCard.Limit {
 		t.Status = "rejected"
 	} else {
 		t.Status = "approved"
 		creditCard.Balance = creditCard.Balance + t.Amount
-	}				
+	}
 }

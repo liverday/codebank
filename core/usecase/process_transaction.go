@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"time"
+
 	"github.com/liverday/codebank/core/domain"
 	"github.com/liverday/codebank/core/dto"
 )
@@ -47,7 +48,7 @@ func (u UseCaseTransaction) hydrateCreditCard(newTransactionDto dto.NewTransacti
 	creditCard.ExpirationYear = newTransactionDto.ExpirationYear
 	creditCard.CVV = newTransactionDto.CVV
 	return creditCard
-} 
+}
 
 func (u UseCaseTransaction) newTransaction(newTransactionDto dto.NewTransaction, creditCard domain.CreditCard) *domain.Transaction {
 	t := domain.NewTransaction()
