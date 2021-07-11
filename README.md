@@ -13,6 +13,6 @@ As instruções de instalações estão no README.md de cada projeto.
 ## Ordem recomendada de execução
 
 * Apache Kafka
-* Codebank (Golang)
+* Core (Golang)
 * Back-end e front-end da loja (Nest.js e Next.js)
 * Back-end e front-end das faturas (Nest.js e Next.js)
