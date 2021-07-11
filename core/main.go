@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	db := setupDb
+	db := setupDb()
 	defer db.Close()
 }
 
@@ -23,7 +23,7 @@ func setupTransactionUseCase(db *sql.DB) usecase.UseCaseTransaction {
 }
 
 func setupDb() *sql.DB {
-	psqlInfo := fmt.Sprint("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		"db",
 		"5432",
 		"postgres",
