@@ -1,18 +1,22 @@
 package usecase
 
 import (
+	"encoding/json"
+	"os"
 	"time"
 
 	"github.com/liverday/codebank/core/domain"
 	"github.com/liverday/codebank/core/dto"
+	"github.com/liverday/codebank/core/infrastructure/kafka"
 )
 
 type UseCaseTransaction struct {
 	transactionsRepository domain.TransactionsRepository
+	kafkaProducer          kafka.KafkaProducer
 }
 
-func NewUseCaseTransaction(transactionsRepository domain.TransactionsRepository) UseCaseTransaction {
-	return UseCaseTransaction{transactionsRepository: transactionsRepository}
+func NewUseCaseTransaction(transactionsRepository domain.TransactionsRepository, kafkaProducer kafka.KafkaProducer) UseCaseTransaction {
+	return UseCaseTransaction{transactionsRepository: transactionsRepository, kafkaProducer: kafkaProducer}
 }
 
 func (u UseCaseTransaction) ProcessTransaction(newTransactionDto dto.NewTransaction) (domain.Transaction, error) {
@@ -32,6 +36,21 @@ func (u UseCaseTransaction) ProcessTransaction(newTransactionDto dto.NewTransact
 	t.ProcessAndValidate(creditCard)
 
 	err = u.transactionsRepository.SaveTransaction(*t, *creditCard)
+
+	if err != nil {
+		return domain.Transaction{}, err
+	}
+
+	newTransactionDto.ID = t.ID
+	newTransactionDto.CreatedAt = t.CreatedAt
+
+	newTransactionJson, err := json.Marshal(newTransactionDto)
+
+	if err != nil {
+		return domain.Transaction{}, err
+	}
+
+	err = u.kafkaProducer.Publish(string(newTransactionJson), os.Getenv("KafkaTransactionsTopic"))
 
 	if err != nil {
 		return domain.Transaction{}, err

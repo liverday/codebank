@@ -5,14 +5,14 @@ import (
 )
 
 type NewTransaction struct {
-	ID string
-	OwnerName string
-	Number string
-	ExpirationMonth int32
-	ExpirationYear int32
-	CVV string
-	Amount float64
-	Store string
-	Description string
-	CreatedAt time.Time
+	ID              string    `json:"transaction_id"`
+	OwnerName       string    `json:"-"`
+	Number          string    `json:"credit_card_number"`
+	ExpirationMonth int32     `json:"-"`
+	ExpirationYear  int32     `json:"-"`
+	CVV             string    `json:"-"`
+	Amount          float64   `json:"amount"`
+	Store           string    `json:"store"`
+	Description     string    `json:"description"`
+	CreatedAt       time.Time `json:"payment_date"`
 }
