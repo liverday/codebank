@@ -50,7 +50,7 @@ const ProductsListPage: NextPage<ProductsListPageProps> = ({ products }) => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Link href="/products/[slug]" as={`/products/${product.slug}`}>
+                <Link href="/products/[slug]" as={`/products/${product.slug}`} passHref>
                   <Button size="small" color="primary" component="a">
                     Detalhes
                   </Button>

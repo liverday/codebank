@@ -26,7 +26,7 @@ export const products: Product[] = [
         description: 'muito texto descritivo 2',
         price: 50.50,
         image_url: 'https://source.unsplash.com/random?product,' + Math.random(),
-        slug: 'produto-teste',
+        slug: 'produto-teste2',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
