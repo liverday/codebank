@@ -20,7 +20,6 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailsPage: NextPage<ProductDetailPageProps> = ({ product }) => {
-  console.log(product);
   return (
     <div>
       <Head>
